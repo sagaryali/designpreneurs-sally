@@ -140,42 +140,10 @@
     }
 
     .nav-cta:hover {
-      background: rgba(0,0,0,0.05);
-      color: #111;
-      border-color: #111;
-    }
-
-    .nav--dark {
       background: #000;
-      border-bottom-color: rgba(255,255,255,0.1);
-    }
-
-    .nav--dark .nav-links a,
-    .nav--dark .nav-links > li + li::before {
       color: #fff;
-      background: transparent;
+      border-color: #000;
     }
-
-    .nav--dark .nav-links > li + li::before {
-      background: rgba(255,255,255,0.25);
-    }
-
-    .nav--dark .nav-cta {
-      color: #fff;
-      border-color: #fff;
-    }
-
-    .nav--dark .nav-cta:hover {
-      background: rgba(255,255,255,0.1);
-    }
-
-    .nav--dark .dropdown-menu {
-      background: #111;
-      border-color: rgba(255,255,255,0.1);
-    }
-
-    .nav--dark .dropdown-menu li a { color: #ddd; }
-    .nav--dark .dropdown-menu li a:hover { background: rgba(255,255,255,0.06); color: #fff; }
 
 
     /* ── HERO ─────────────────────────────────────────────────────────────── */
@@ -900,13 +868,6 @@
 
     loadEvents();
     renderFAQ();
-
-    document.getElementById('joinNowBtn').addEventListener('click', function () {
-      const nav = document.querySelector('.nav');
-      const logo = document.querySelector('.nav-logo img');
-      nav.classList.add('nav--dark');
-      logo.src = 'assets/d_logo_white.png';
-    });
   </script>
 
 </body>
