@@ -315,7 +315,7 @@
       background: #fff;
     }
 
-    .section-heading {
+.section-heading {
       font-size: clamp(40px, 5.5vw, 80px);
       font-weight: 800;
       color: #111;
@@ -327,27 +327,44 @@
     .events-inner {
       max-width: 960px;
       margin: 0 auto;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      column-gap: 96px;
+      align-items: start;
+    }
+
+    .events-nav {
+      position: sticky;
+      top: 88px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
     .events-group {
-      display: grid;
-      grid-template-columns: 180px 1fr;
-      column-gap: 48px;
       margin-bottom: 72px;
+      scroll-margin-top: 88px;
     }
 
     .events-group:last-of-type { margin-bottom: 0; }
 
     .events-group-label {
-      font-size: 13px;
+      font-size: 17px;
       font-weight: 600;
-      color: #111;
-      letter-spacing: 0.8px;
+      color: #bbb;
+      letter-spacing: 0.5px;
       text-transform: uppercase;
-      padding-top: 6px;
-      position: sticky;
-      top: 88px;
-      align-self: start;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .events-group-label.active {
+      color: #111;
+      font-weight: 800;
+    }
+
+    .events-group-label:hover {
+      color: #555;
     }
 
     .events-list {
@@ -607,6 +624,140 @@
       padding-bottom: 26px;
     }
 
+
+    /* ── HAMBURGER (hidden on desktop) ───────────────────────────────────── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+      margin-left: 16px;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #111;
+      border-radius: 2px;
+      transition: transform 0.25s, opacity 0.2s;
+    }
+
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+
+    /* ── TABLET ≤ 900px ───────────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .nav { padding: 0 32px; }
+
+      .hero { padding: 0 40px 72px; }
+
+      .sponsors-title { padding: 0 40px; }
+
+      .events-section { padding: 80px 40px; }
+      .events-inner {
+        grid-template-columns: 160px 1fr;
+        column-gap: 48px;
+      }
+
+      .footprint { padding: 60px 40px; }
+
+      .faq { padding: 80px 40px; }
+    }
+
+
+    /* ── MOBILE ≤ 680px ───────────────────────────────────────────────────── */
+    @media (max-width: 680px) {
+      /* Nav */
+      .nav { padding: 0 20px; }
+
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 68px; left: 0; right: 0;
+        background: rgba(255,255,255,0.97);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        flex-direction: column;
+        padding: 16px 20px 24px;
+        border-bottom: 1px solid rgba(0,0,0,0.08);
+        z-index: 99;
+        gap: 0;
+        margin-left: 0;
+      }
+
+      .nav-links.open { display: flex; }
+
+      .nav-links > li { width: 100%; }
+
+      .nav-links > li + li::before { display: none; }
+
+      .nav-links a {
+        display: block;
+        padding: 14px 0;
+        font-size: 16px;
+        border-bottom: 1px solid rgba(0,0,0,0.06);
+      }
+
+      .nav-hamburger { display: flex; }
+
+      /* Hero */
+      .hero { padding: 0 20px 56px; }
+
+      /* Sponsors */
+      .sponsors { padding: 56px 0; }
+      .sponsors-title { padding: 0 20px; font-size: 15px; }
+
+      /* Events */
+      .events-section { padding: 56px 20px; }
+
+      .section-heading { margin-bottom: 48px; }
+
+      .events-inner {
+        grid-template-columns: 1fr;
+        row-gap: 28px;
+      }
+
+      .events-nav {
+        position: static;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px 20px;
+        border-bottom: 1px solid rgba(0,0,0,0.08);
+        padding-bottom: 20px;
+      }
+
+      .events-group-label { font-size: 13px; }
+
+      .events-group { margin-bottom: 48px; scroll-margin-top: 68px; }
+
+      .event-item {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .event-image-wrap {
+        width: 100%;
+        height: 200px;
+      }
+
+      /* Footprint */
+      .footprint { padding: 56px 20px; }
+
+      /* FAQ */
+      .faq { padding: 56px 20px; }
+
+      .faq-q { gap: 20px; padding: 20px 0; }
+
+      .faq-q-text { font-size: 15px; }
+    }
+
   </style>
 </head>
 <body>
@@ -620,18 +771,14 @@
       <li><a href="#">About Us</a></li>
       <li><a href="#">Partnership</a></li>
       <li><a href="#events">Events</a></li>
-      <li class="nav-dropdown">
-        <a href="#">People</a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Organizers</a></li>
-          <li><a href="#">Judges &amp; Mentors</a></li>
-          <li><a href="#">Hackers</a></li>
-        </ul>
-      </li>
+
       <li><a href="#faq">FAQ</a></li>
     </ul>
 
     <a href="https://www.designpreneurshackathon.com/#join-now" class="nav-cta" id="joinNowBtn">Join Now</a>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
 
@@ -700,19 +847,24 @@
     <h2 class="section-heading">Our Events</h2>
     <div class="events-inner">
 
-      <div class="events-group">
-        <div class="events-group-label">Upcoming Events</div>
-        <div class="events-list" id="list-upcoming"></div>
-      </div>
+      <nav class="events-nav">
+        <div class="events-group-label active" data-target="group-upcoming">Upcoming Events</div>
+        <div class="events-group-label" data-target="group-2025-2026">2025 &amp; 2026</div>
+        <div class="events-group-label" data-target="group-2023-2024">2023 &amp; 2024</div>
+      </nav>
 
-      <div class="events-group">
-        <div class="events-group-label">2025 &amp; 2026</div>
-        <div class="events-list" id="list-2025-2026"></div>
-      </div>
+      <div class="events-content">
+        <div class="events-group" id="group-upcoming">
+          <div class="events-list" id="list-upcoming"></div>
+        </div>
 
-      <div class="events-group">
-        <div class="events-group-label">2023 &amp; 2024</div>
-        <div class="events-list" id="list-2023-2024"></div>
+        <div class="events-group" id="group-2025-2026">
+          <div class="events-list" id="list-2025-2026"></div>
+        </div>
+
+        <div class="events-group" id="group-2023-2024">
+          <div class="events-list" id="list-2023-2024"></div>
+        </div>
       </div>
 
     </div>
@@ -868,6 +1020,49 @@
 
     loadEvents();
     renderFAQ();
+
+    /* ── MOBILE NAV ───────────────────────────────────────────────────────── */
+    (function () {
+      const btn   = document.getElementById('navHamburger');
+      const links = document.querySelector('.nav-links');
+      btn.addEventListener('click', () => {
+        btn.classList.toggle('open');
+        links.classList.toggle('open');
+      });
+      links.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          btn.classList.remove('open');
+          links.classList.remove('open');
+        });
+      });
+    })();
+
+    /* ── EVENTS NAV ───────────────────────────────────────────────────────── */
+    (function () {
+      const labels = document.querySelectorAll('.events-nav .events-group-label');
+
+      labels.forEach(label => {
+        label.addEventListener('click', () => {
+          const target = document.getElementById(label.dataset.target);
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          labels.forEach(l => l.classList.remove('active'));
+          const active = document.querySelector(`.events-nav [data-target="${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        });
+      }, { rootMargin: '0px 0px -55% 0px', threshold: 0 });
+
+      ['group-upcoming', 'group-2025-2026', 'group-2023-2024'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
+    })();
+
   </script>
 
 </body>
