@@ -108,6 +108,15 @@
 
     .nav-dropdown:hover .dropdown-menu { display: block; }
 
+    .nav-dropdown::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      height: 14px;
+    }
+
     .dropdown-menu li + li { border-top: 1px solid rgba(0,0,0,0.06); }
 
     .dropdown-menu li a {
@@ -727,12 +736,16 @@
       }
 
       .events-nav {
-        position: static;
+        position: sticky;
+        top: 68px;
+        z-index: 10;
+        background: #fff;
         flex-direction: row;
         flex-wrap: wrap;
         gap: 10px 20px;
         border-bottom: 1px solid rgba(0,0,0,0.08);
         padding-bottom: 20px;
+        padding-top: 16px;
       }
 
       .events-group-label { font-size: 13px; }
@@ -819,7 +832,7 @@
         <div class="logo-item"><img src="https://1000logos.net/wp-content/uploads/2021/10/Meta-Logo.png" alt="Meta"></div>
         <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Ramp_Business_Corporation_Logo.svg/3840px-Ramp_Business_Corporation_Logo.svg.png" alt="Ramp"></div>
         <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/SAP_2011_logo.svg/960px-SAP_2011_logo.svg.png" alt="SAP"></div>
-        <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Duolingo_logo.svg/960px-Duolingo_logo.svg.png" alt="Duolingo"></div>
+        <div class="logo-item"><img src="assets/duolingo_logo.svg" alt="Duolingo"></div>
         <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Nyu_short_color.svg/3840px-Nyu_short_color.svg.png" alt="NYU"></div>
         <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Parsons_School_of_Design_Logo_-_Full.svg/960px-Parsons_School_of_Design_Logo_-_Full.svg.png" alt="Parsons"></div>
         <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f3/SVA-2022-logo.png" alt="SVA"></div>
@@ -838,7 +851,7 @@
         <div class="logo-item"><img src="https://1000logos.net/wp-content/uploads/2021/10/Meta-Logo.png" alt="Meta"></div>
         <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Ramp_Business_Corporation_Logo.svg/3840px-Ramp_Business_Corporation_Logo.svg.png" alt="Ramp"></div>
         <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/SAP_2011_logo.svg/960px-SAP_2011_logo.svg.png" alt="SAP"></div>
-        <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Duolingo_logo.svg/960px-Duolingo_logo.svg.png" alt="Duolingo"></div>
+        <div class="logo-item"><img src="assets/duolingo_logo.svg" alt="Duolingo"></div>
         <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Nyu_short_color.svg/3840px-Nyu_short_color.svg.png" alt="NYU"></div>
         <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Parsons_School_of_Design_Logo_-_Full.svg/960px-Parsons_School_of_Design_Logo_-_Full.svg.png" alt="Parsons"></div>
         <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f3/SVA-2022-logo.png" alt="SVA"></div>
