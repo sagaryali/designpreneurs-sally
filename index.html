@@ -1043,6 +1043,8 @@
     loadEvents();
     renderFAQ();
 
+    window.addEventListener('beforeunload', () => window.scrollTo(0, 0));
+
     /* ── MOBILE NAV ───────────────────────────────────────────────────────── */
     (function () {
       const btn   = document.getElementById('navHamburger');
