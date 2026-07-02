@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Core Team — Designpreneurs</title>
+  <link rel="icon" type="image/jpeg" href="assets/favicon.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Wix Madefor Display', sans-serif; background: #fff; color: #111; overflow-x: hidden; }
+
+    /* ── NAV ─────────────────────────────────────────────────────────────────── */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; padding: 0 64px; height: 68px; background: #fff; border-bottom: 1px solid rgba(0,0,0,0.07); }
+    .nav-logo { flex-shrink: 0; height: 28px; width: auto; }
+    .nav-logo img { height: 100%; width: auto; display: block; }
+    .nav-links { display: flex; align-items: center; list-style: none; margin-left: 40px; gap: 0; }
+    .nav-links > li { display: flex; align-items: center; }
+    .nav-links > li + li::before { content: ''; display: inline-block; width: 1px; height: 10px; background: rgba(0,0,0,0.18); margin: 0 14px; }
+    .nav-links a { font-family: 'Wix Madefor Display', sans-serif; font-size: 14px; color: #333; text-decoration: none; white-space: nowrap; transition: color 0.2s; }
+    .nav-links a:hover { color: #111; }
+    .nav-dropdown { position: relative; }
+    .nav-dropdown > a::after { content: ' ▾'; font-size: 9px; opacity: 0.6; }
+    .dropdown-menu { display: none; position: absolute; top: calc(100% + 14px); left: 50%; transform: translateX(-50%); background: #fff; border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; padding: 6px 0; min-width: 190px; list-style: none; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .nav-dropdown:hover .dropdown-menu { display: block; }
+    .nav-dropdown::after { content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 14px; }
+    .dropdown-menu li + li { border-top: 1px solid rgba(0,0,0,0.06); }
+    .dropdown-menu li a { display: block; padding: 11px 20px; font-size: 13px; color: #444; }
+    .dropdown-menu li a:hover { background: rgba(0,0,0,0.03); color: #111; }
+    .nav-cta { margin-left: auto; display: inline-flex; align-items: center; justify-content: center; width: 91px; height: 33px; border: 1px solid #666; border-radius: 40px; font-family: 'Wix Madefor Display', sans-serif; font-size: 14px; color: #333; text-decoration: none; background: transparent; cursor: pointer; transition: background 0.2s, color 0.2s, border-color 0.2s; }
+    .nav-cta:hover { background: #000; color: #fff; border-color: #000; }
+    .nav-hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; margin-left: 16px; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: #111; border-radius: 2px; transition: transform 0.25s, opacity 0.2s; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── HERO ─────────────────────────────────────────────────────────────────── */
+    .hero { position: relative; width: 100%; height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding: 0 80px 96px; overflow: hidden; text-align: center; background-image: url('assets/people_hero.png'); background-size: cover; background-position: center; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.3); z-index: 0; }
+    .hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.1) 50%, transparent 100%); z-index: 1; }
+    .hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
+    .hero-title { font-size: clamp(72px, 10vw, 148px); font-weight: 800; line-height: 0.92; letter-spacing: -3px; color: #fff; text-transform: uppercase; margin-bottom: 44px; }
+    .hero-cta { display: inline-flex; align-items: center; gap: 12px; padding: 14px 30px; border: 1px solid rgba(255,255,255,0.8); background: transparent; font-family: 'Wix Madefor Display', sans-serif; font-size: 14px; color: #fff; text-decoration: none; transition: background 0.2s; }
+    .hero-cta:hover { background: rgba(255,255,255,0.12); }
+    .hero-cta .arrow { display: inline-block; transition: transform 0.25s; }
+    .hero-cta:hover .arrow { transform: translateY(4px); }
+
+    /* ── BLOB TEXT ───────────────────────────────────────────────────────────── */
+    .hero-svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+
+    /* ── MISSION SECTION ─────────────────────────────────────────────────────── */
+    .mission-section { padding: 120px 80px; background: #fff; }
+    .mission-body { max-width: 760px; margin: 0 auto; }
+    .mission-body p { font-size: 18px; font-weight: 400; color: #222; line-height: 1.78; }
+    .mission-body p + p { margin-top: 32px; }
+
+    /* ── BLACK IMAGE SECTION ─────────────────────────────────────────────────── */
+    .image-section { background: #000; padding: 80px; display: flex; justify-content: center; align-items: center; }
+    .image-section img { width: 52%; max-width: 680px; height: auto; display: block; }
+
+    /* ── FOUNDER'S LETTER ───────────────────────────────────────────────────── */
+    .founders-letter { position: relative; padding: 160px 80px 100px; background: #fff; border-top: 1px solid rgba(0,0,0,0.06); }
+    .founders-letter-float-img { position: absolute; top: 76px; left: 120px; width: 272px; transform: translateY(-50%); z-index: 10; border-radius: 14px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
+    .founders-letter-float-img img { width: 100%; height: auto; display: block; }
+    .founders-letter-inner { max-width: 720px; margin: 0 auto; text-align: left; }
+    .founders-letter-inner p { font-size: 17px; font-weight: 400; color: #222; line-height: 1.82; }
+    .founders-letter-inner p + p { margin-top: 26px; }
+    .founders-letter-sig { margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(0,0,0,0.1); font-size: 14px; font-weight: 600; color: #111; }
+
+    /* ── TEAM SECTION ────────────────────────────────────────────────────────── */
+    .team-section { padding: 80px; }
+    .section-heading { font-size: clamp(40px, 5.5vw, 80px); font-weight: 800; color: #111; margin-bottom: 64px; letter-spacing: -1.5px; text-align: center; }
+    .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px 24px; max-width: 1200px; margin: 0 auto; }
+    .person-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.08); transition: box-shadow 0.2s, transform 0.2s; cursor: pointer; }
+    .person-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.13); transform: translateY(-2px); }
+    .person-card-media { width: 100%; aspect-ratio: 4/3; background: #d8d8d8; display: flex; align-items: center; justify-content: center; }
+    .person-card-media img { width: 100%; height: 100%; object-fit: cover; object-position: center 15%; display: block; }
+    .person-card-body { padding: 18px 20px 22px; }
+    .person-name { font-size: 16px; font-weight: 800; color: #111; text-transform: uppercase; letter-spacing: 0.3px; line-height: 1.35; }
+    .person-divider { height: 1px; background: rgba(0,0,0,0.1); margin: 12px 0; }
+    .person-role { font-size: 13px; font-weight: 400; color: #555; line-height: 1.5; }
+
+    /* ── FOUNDER DRAWER ──────────────────────────────────────────────────────── */
+    .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.32); z-index: 149; opacity: 0; pointer-events: none; transition: opacity 0.28s; }
+    .drawer-overlay.open { opacity: 1; pointer-events: all; }
+    .founder-drawer { position: fixed; top: 68px; right: 0; bottom: 0; width: 33.333vw; background: #fff; border-left: 1px solid rgba(0,0,0,0.08); z-index: 150; transform: translateX(100%); transition: transform 0.32s cubic-bezier(0.4,0,0.2,1); overflow-y: auto; display: flex; flex-direction: column; }
+    .founder-drawer.open { transform: translateX(0); }
+    .drawer-close { position: absolute; top: 36px; right: 32px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.35); border: none; border-radius: 50%; font-size: 14px; cursor: pointer; color: #fff; z-index: 2; transition: background 0.18s; }
+    .drawer-close:hover { background: rgba(0,0,0,0.55); }
+    .drawer-photo { display: block; width: calc(100% - 40px); aspect-ratio: 1/1; margin: 24px 20px 0; object-fit: cover; object-position: center 15%; border-radius: 16px; }
+    .drawer-body { padding: 24px 28px 48px; display: flex; flex-direction: column; gap: 8px; }
+    .drawer-name { font-size: 22px; font-weight: 800; color: #111; text-transform: uppercase; letter-spacing: -0.3px; }
+    .drawer-role { font-size: 11px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: 2px; }
+    .drawer-divider { height: 1px; background: rgba(0,0,0,0.08); margin: 8px 0; }
+    .drawer-blurb { font-size: 15px; font-weight: 400; color: #444; line-height: 1.82; }
+    @media (max-width: 680px) {
+      .founder-drawer { width: 100%; }
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .nav { padding: 0 32px; }
+      .hero { padding: 0 40px 72px; }
+      .mission-section { padding: 80px 40px; }
+      .image-section { padding: 60px 40px; }
+      .image-section img { width: 80%; }
+      .founders-letter { padding: 120px 40px 80px; }
+      .founders-letter-float-img { left: 40px; width: 200px; }
+      .founders-letter-inner { max-width: 100%; }
+      .team-section { padding: 60px 40px; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 680px) {
+      .nav { padding: 0 20px; }
+      .nav-links { display: none; position: fixed; top: 68px; left: 0; right: 0; background: #fff; flex-direction: column; padding: 16px 20px 24px; border-bottom: 1px solid rgba(0,0,0,0.08); z-index: 99; gap: 0; margin-left: 0; }
+      .nav-links.open { display: flex; }
+      .nav-links > li { width: 100%; }
+      .nav-links > li + li::before { display: none; }
+      .nav-links a { display: block; padding: 14px 0; font-size: 16px; border-bottom: 1px solid rgba(0,0,0,0.06); }
+      .nav-hamburger { display: flex; }
+      .hero { padding: 0 20px 56px; }
+      .hero-title { letter-spacing: -1.5px; }
+      .mission-section { padding: 56px 20px; }
+      .mission-body p { font-size: 16px; line-height: 1.7; }
+      .image-section { padding: 40px 20px; }
+      .image-section img { width: 100%; }
+      .founders-letter { padding: 56px 20px 56px; }
+      .founders-letter-float-img { display: none; }
+      .founders-letter-inner { max-width: 100%; }
+      .founders-letter-inner p { font-size: 16px; }
+      .team-section { padding: 48px 20px; }
+      .section-heading { margin-bottom: 40px; font-size: clamp(32px, 9vw, 56px); }
+      .team-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .mindset { padding: 72px 24px; }
+      .mindset-headline { font-size: clamp(34px, 8vw, 44px); }
+      .mindset-body { font-size: 15px; }
+    }
+    @media (max-width: 420px) {
+      .team-grid { grid-template-columns: 1fr; }
+      .founders-letter-inner p { font-size: 15px; }
+      .mission-body p { font-size: 15px; }
+    }
+
+    /* ── MINDSET SECTION ──────────────────────────────────────────────────── */
+    .mindset {
+      position: relative;
+      background: #163025;
+      padding: 72px 80px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .mindset-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    .mindset-eyebrow {
+      position: relative;
+      z-index: 1;
+      font-family: 'Wix Madefor Display', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: #c8e64c;
+      margin-bottom: 28px;
+    }
+    .mindset-headline {
+      position: relative;
+      z-index: 1;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(44px, 5.2vw, 68px);
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+      color: #f0ebe3;
+      margin: 0 auto 36px;
+      max-width: 800px;
+    }
+    .mindset-body {
+      position: relative;
+      z-index: 1;
+      font-family: 'Wix Madefor Display', sans-serif;
+      font-size: 17px;
+      font-weight: 400;
+      color: #7fa899;
+      line-height: 1.78;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    @media (max-width: 900px) {
+      .mindset { padding: 96px 40px; }
+    }
+
+    /* ── TESTIMONIALS ────────────────────────────────────────────────────────── */
+    .testimonials-section { padding: 140px 80px; background: #111; }
+    .testimonials-inner { display: grid; grid-template-columns: 300px 1fr; column-gap: 96px; align-items: center; max-width: 1100px; margin: 0 auto; }
+    .testimonial-image { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 16px; display: block; }
+    .testimonial-content { display: flex; flex-direction: column; gap: 40px; }
+    .testimonial-quote-mark { font-size: 72px; line-height: 0.6; color: #fff; font-family: Georgia, serif; font-weight: 700; margin-bottom: 4px; }
+    .testimonial-quote { font-family: 'Playfair Display', Georgia, serif; font-size: 22px; font-weight: 400; color: #fff; line-height: 1.75; }
+    .testimonial-attribution { display: flex; flex-direction: column; gap: 8px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.15); }
+    .testimonial-name { font-size: 15px; font-weight: 700; color: #fff; }
+    .testimonial-role { font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.5); }
+
+    /* ── JOIN NOW ────────────────────────────────────────────────────────────── */
+    .join-section { padding: 80px 80px 120px; background: #fff; }
+    .join-inner { display: grid; grid-template-columns: 1fr 1fr; column-gap: 80px; align-items: start; max-width: 1200px; margin: 0 auto; }
+    .join-lede { padding-top: 12px; }
+    .join-lede p { font-family: 'Playfair Display', Georgia, serif; font-size: 24px; font-weight: 400; color: #111; line-height: 1.4; }
+    .join-lede p strong { font-weight: 800; color: #111; }
+    .join-lede p em { font-style: italic; font-weight: 400; }
+    .join-form { display: flex; flex-direction: column; gap: 12px; }
+    .join-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .join-field { display: flex; flex-direction: column; gap: 0; }
+    .join-field select,
+    .join-field input,
+    .join-field textarea { width: 100%; padding: 14px 18px; font-family: 'Wix Madefor Display', sans-serif; font-size: 14px; font-weight: 500; color: #111; background: #fff; border: 1.5px solid rgba(0,0,0,0.12); border-radius: 100px; outline: none; transition: border-color 0.18s; appearance: none; -webkit-appearance: none; box-sizing: border-box; }
+    .join-field textarea { border-radius: 20px; resize: none; min-height: 120px; line-height: 1.6; }
+    .join-field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px; cursor: pointer; color: #999; }
+    .join-field select.filled { color: #111; }
+    .join-field select:focus, .join-field input:focus, .join-field textarea:focus { border-color: #111; }
+    .join-field input::placeholder, .join-field textarea::placeholder { color: #999; font-weight: 400; }
+    .join-submit-row { display: flex; justify-content: flex-end; margin-top: 4px; }
+    .join-submit { padding: 14px 36px; background: #111; color: #fff; font-family: 'Wix Madefor Display', sans-serif; font-size: 14px; font-weight: 700; border: none; border-radius: 100px; cursor: pointer; transition: background 0.18s, transform 0.12s; }
+    .join-submit:hover { background: #333; }
+    .join-submit:active { transform: scale(0.97); }
+
+    /* ── FOOTER ──────────────────────────────────────────────────────────────── */
+    .site-footer { background: #0d0d0d; padding: 72px 80px 56px; }
+    .footer-main { display: grid; grid-template-columns: 1fr 1fr; column-gap: 80px; align-items: end; }
+    .footer-brand { display: flex; flex-direction: column; gap: 0; }
+    .footer-logo-row { display: flex; align-items: center; gap: 14px; margin-bottom: 36px; }
+    .footer-logo { height: 40px; width: auto; display: block; }
+    .footer-logo-name { font-size: 18px; font-weight: 700; color: #fff; line-height: 1.25; }
+    .footer-desc { font-size: 14px; font-weight: 400; color: #fff; line-height: 1.7; max-width: 380px; margin-bottom: 24px; }
+    .footer-social-row { display: flex; align-items: center; gap: 16px; }
+    .footer-social-icon { display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; transition: opacity 0.18s; }
+    .footer-social-icon:hover { opacity: 0.7; }
+    .footer-social-icon svg { width: 18px; height: 18px; }
+    .footer-email { font-size: 14px; font-weight: 400; color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+    .footer-email:hover { opacity: 0.7; }
+    .footer-right { display: flex; flex-direction: column; gap: 20px; }
+    .footer-newsletter-label { font-size: 14px; font-weight: 400; color: #fff; line-height: 1.5; }
+    .footer-newsletter-label em { font-style: italic; }
+    .footer-newsletter-form { display: flex; gap: 10px; align-items: center; }
+    .footer-newsletter-input { flex: 1; padding: 14px 22px; background: #fff; border: none; border-radius: 100px; font-family: 'Wix Madefor Display', sans-serif; font-size: 14px; color: #111; outline: none; }
+    .footer-newsletter-input::placeholder { color: #aaa; }
+    .footer-newsletter-btn { padding: 14px 28px; background: #3a3a3a; color: #fff; border: none; border-radius: 100px; font-family: 'Wix Madefor Display', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: background 0.18s; }
+    .footer-newsletter-btn:hover { background: #555; }
+
+    @media (max-width: 900px) {
+      .testimonials-section { padding: 80px 40px; }
+      .testimonials-inner { grid-template-columns: 1fr; row-gap: 40px; }
+      .testimonial-image { width: 200px; }
+      .join-section { padding: 80px 40px; }
+      .join-inner { grid-template-columns: 1fr; row-gap: 48px; }
+      .site-footer { padding: 56px 40px 40px; }
+      .footer-main { grid-template-columns: 1fr; row-gap: 56px; }
+    }
+    @media (max-width: 680px) {
+      .testimonials-section { padding: 56px 20px; }
+      .testimonial-quote { font-size: 19px; }
+      .join-section { padding: 56px 20px; }
+      .join-row { grid-template-columns: 1fr; }
+      .site-footer { padding: 48px 20px 36px; }
+      .footer-newsletter-form { flex-direction: column; align-items: stretch; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="https://www.designpreneurshackathon.com/#home" class="nav-logo"><img src="assets/d_logo_black.png" alt="Designpreneurs"></a>
+    <ul class="nav-links">
+      <li><a href="https://www.designpreneurshackathon.com/#home">Home</a></li>
+      <li><a href="https://www.designpreneurshackathon.com/#aboutus">About Us</a></li>
+      <li><a href="index.html#partnership">Partnership</a></li>
+      <li><a href="index.html#events">Events</a></li>
+      <li class="nav-dropdown">
+        <a href="#">People</a>
+        <ul class="dropdown-menu">
+          <li><a href="team.html">Founders</a></li>
+          <li><a href="judges.html">Judges &amp; Mentors</a></li>
+          <li><a href="hackers.html">Hackers</a></li>
+        </ul>
+      </li>
+      <li><a href="index.html#faq">FAQ</a></li>
+    </ul>
+    <a href="https://www.designpreneurshackathon.com/#join-now" class="nav-cta">Join Now</a>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+
+  <section class="hero">
+    <svg class="hero-svg" viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <defs>
+        <!--
+          Sprawling abstract loop — deliberately overshoots all four viewport edges
+          so text appears/disappears as it crosses the hero boundary.
+          Viewport is 0 0 1440 900; overflow:hidden on .hero clips what's outside.
+        -->
+        <path id="blobPath" d="
+          M 480,75
+          C 820,-130 1360,10 1660,240
+          C 1860,410 1780,660 1540,750
+          C 1340,830 1080,720 870,745
+          C 660,770 510,870 350,1040
+          C 190,1210 -150,940 -210,660
+          C -270,370 -50,160 230,110
+          C 350,88 400,98 480,75
+        "/>
+      </defs>
+      <!-- static shape outline — clipped by hero overflow:hidden at the edges -->
+      <path d="
+          M 480,75
+          C 820,-130 1360,10 1660,240
+          C 1860,410 1780,660 1540,750
+          C 1340,830 1080,720 870,745
+          C 660,770 510,870 350,1040
+          C 190,1210 -150,940 -210,660
+          C -270,370 -50,160 230,110
+          C 350,88 400,98 480,75
+        " fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="1"/>
+      <!-- text flowing continuously along the shape -->
+      <text fill="rgba(255,255,255,0.85)" font-size="13" font-weight="700" letter-spacing="4" font-family="'Wix Madefor Display', sans-serif">
+        <textPath id="blobText" href="#blobPath" xlink:href="#blobPath" startOffset="0%">DESIGNPRENEURS HACKATHON · BUILD. CREATE. INNOVATE · DESIGN MEETS ENTREPRENEURSHIP · HACK THE FUTURE · COMMUNITY FIRST · WHERE DESIGNERS BECOME BUILDERS · DESIGNPRENEURS HACKATHON · BUILD. CREATE. INNOVATE · DESIGN MEETS ENTREPRENEURSHIP · HACK THE FUTURE · COMMUNITY FIRST · WHERE DESIGNERS BECOME BUILDERS · DESIGNPRENEURS HACKATHON · BUILD. CREATE. INNOVATE · DESIGN MEETS ENTREPRENEURSHIP · HACK THE FUTURE · COMMUNITY FIRST · WHERE DESIGNERS BECOME BUILDERS · DESIGNPRENEURS HACKATHON · BUILD. CREATE. INNOVATE · DESIGN MEETS ENTREPRENEURSHIP · HACK THE FUTURE · COMMUNITY FIRST · WHERE DESIGNERS BECOME BUILDERS · DESIGNPRENEURS HACKATHON · BUILD. CREATE. INNOVATE · DESIGN MEETS ENTREPRENEURSHIP · HACK THE FUTURE · COMMUNITY FIRST · WHERE DESIGNERS BECOME BUILDERS ·</textPath>
+      </text>
+    </svg>
+    <div class="hero-content">
+      <h1 class="hero-title">Our<br>People</h1>
+    </div>
+  </section>
+
+
+  <section class="mission-section">
+    <div class="mission-body">
+      <p>We're a community of design-centered builders and entrepreneurs who believe the best products start with people who care how things feel — not just how they function.</p>
+      <p>Most hackathons reward the fastest demo. We reward the sharpest idea, well-made. In our hackathon, you'll go from a blank canvas to a working product, with mentorship, design critique, and the kind of room where good taste compounds.</p>
+      <p>Designpreneurs is where design becomes a business. Where the person who sweats the details also pitches the vision.</p>
+      <p>Designpreneurs was born because the gap between "designer" and "founder" should be a weekend, not a career. And we're just getting started.</p>
+    </div>
+  </section>
+
+  <section class="image-section">
+    <img src="assets/innovators_diagram.png" alt="Designpreneurs Innovators">
+  </section>
+
+  <section class="team-section" id="team">
+    <h2 class="section-heading">Core Team</h2>
+    <div class="team-grid">
+
+      <div class="person-card" data-person="sally">
+        <div class="person-card-media"><img src="assets/people/sally.webp" alt="Sally Chung"></div>
+        <div class="person-card-body"><p class="person-name">Sally Chung</p><div class="person-divider"></div><p class="person-role">Founder</p></div>
+      </div>
+
+      <div class="person-card" data-person="ian">
+        <div class="person-card-media"><img src="assets/people/ian.jpeg" alt="Ian Abinoja" style="object-position: center 20%;"></div>
+        <div class="person-card-body"><p class="person-name">Ian Abinoja</p><div class="person-divider"></div><p class="person-role">Advisor</p></div>
+      </div>
+
+      <div class="person-card" data-person="meijie">
+        <div class="person-card-media"><img src="assets/people/meijie.jpeg" alt="Meijie Hu"></div>
+        <div class="person-card-body"><p class="person-name">Meijie Hu</p><div class="person-divider"></div><p class="person-role">Organizer</p></div>
+      </div>
+
+      <div class="person-card" data-person="vlad">
+        <div class="person-card-media"><img src="assets/people/vlad.jpeg" alt="Vlad Duhnov" style="object-position: center 15%;"></div>
+        <div class="person-card-body"><p class="person-name">Vlad Duhnov</p><div class="person-divider"></div><p class="person-role">Organizer</p></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Founder drawer ── -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <aside class="founder-drawer" id="founderDrawer">
+    <button class="drawer-close" id="drawerClose">✕</button>
+    <img class="drawer-photo" id="drawerPhoto" src="" alt="">
+    <div class="drawer-body">
+      <p class="drawer-name" id="drawerName"></p>
+      <p class="drawer-role" id="drawerRole"></p>
+      <div class="drawer-divider"></div>
+      <p class="drawer-blurb" id="drawerBlurb"></p>
+    </div>
+  </aside>
+
+
+  <section class="founders-letter">
+    <div class="founders-letter-float-img">
+      <img src="assets/founders_illustration.png" alt="Designpreneurs — ideas in action">
+    </div>
+    <h2 class="section-heading">Founder's Letter</h2>
+    <div class="founders-letter-inner">
+      <p>I didn't set out to build a hackathon. I set out to solve one problem for my design students.</p>
+      <p>I teach interaction and startup design at Parsons and SVA, and I kept seeing the same gap. My students were brilliant on the screen — beautiful interfaces, sharp instincts — but they'd never shipped anything into the real world. No exposure to real users, real constraints, real stakes. So I gave them a challenge: one weekend, take an idea from blank canvas to a working product. I just wanted them to walk out with a portfolio piece.</p>
+      <p>Then I saw what was happening on the other side. The products were finding real product-market fit. Founders in the room were learning to think design-first instead of leading with a business model — and their ideas got sharper for it. The weekend I built to teach a portfolio turned into something that drives real business impact.</p>
+      <p>Since then, one startup from this community raised $4M. Another was acquired. More than 70 designers landed jobs through the platform. We've stayed small and selective on purpose — every sponsor, judge, mentor, and hacker is hand-picked — because quality compounds and the room is everything.</p>
+      <p>I believe there should be far more designer-founders in the world. The gap between "designer" and "founder" should be a weekend, not a career. That's what we're here to close.</p>
+      <p class="founders-letter-sig">— Sally Chung, Founder, Designpreneurs</p>
+    </div>
+  </section>
+
+
+  <section class="testimonials-section">
+    <div class="testimonials-inner">
+      <img src="assets/people/meijie.jpeg" alt="Meijie" class="testimonial-image">
+      <div class="testimonial-content">
+        <div>
+          <div class="testimonial-quote-mark">"</div>
+          <p class="testimonial-quote">Judging at Designpreneurs was one of the most energizing experiences I've had in years. The teams weren't just designing interfaces — they were wrestling with real problems and making real bets. That kind of creative courage is rare, and this community cultivates it.</p>
+        </div>
+        <div class="testimonial-attribution">
+          <p class="testimonial-name">Meijie</p>
+          <p class="testimonial-role">Judge &amp; Speaker, Designpreneurs Hackathon</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="join-section" id="join-now">
+    <div class="join-inner">
+      <div class="join-lede">
+        <p>Join today to be a <strong>hacker</strong>, <strong>sponsor</strong> or be featured in our <em>upcoming hackathons &amp; events!</em></p>
+      </div>
+      <form class="join-form" onsubmit="return false;">
+        <div class="join-field">
+          <select onchange="this.classList.toggle('filled', this.value !== '')">
+            <option value="" disabled selected>I'm interested as a... *</option>
+            <option value="sponsor">Sponsor</option>
+            <option value="hacker">Hacker</option>
+            <option value="judge">Judge</option>
+            <option value="mentor">Mentor</option>
+            <option value="volunteer">Volunteer</option>
+          </select>
+        </div>
+        <div class="join-row">
+          <div class="join-field"><input type="text" placeholder="First name *"></div>
+          <div class="join-field"><input type="text" placeholder="Last name *"></div>
+        </div>
+        <div class="join-field"><input type="email" placeholder="Email *"></div>
+        <div class="join-row">
+          <div class="join-field"><input type="text" placeholder="Organization *"></div>
+          <div class="join-field"><input type="text" placeholder="Role *"></div>
+        </div>
+        <div class="join-row">
+          <div class="join-field"><input type="url" placeholder="LinkedIn URL *"></div>
+          <div class="join-field"><input type="url" placeholder="Website URL *"></div>
+        </div>
+        <div class="join-field"><textarea placeholder="Share anything we should know or questions *"></textarea></div>
+        <div class="join-submit-row">
+          <button type="submit" class="join-submit">Submit</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+
+  <section class="mindset">
+    <svg class="mindset-bg" viewBox="0 0 1440 760" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="mbBL" cx="0%" cy="100%" r="75%">
+          <stop offset="0%" stop-color="#091a10" stop-opacity="1"/>
+          <stop offset="100%" stop-color="#163025" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="mbTR" cx="100%" cy="0%" r="65%">
+          <stop offset="0%" stop-color="#0d2018" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#163025" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="mbBR" cx="100%" cy="100%" r="45%">
+          <stop offset="0%" stop-color="#0e2218" stop-opacity="0.8"/>
+          <stop offset="100%" stop-color="#163025" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="mbGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#2d5244" stop-opacity="0.38"/>
+          <stop offset="100%" stop-color="#163025" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- corner depth blobs -->
+      <rect width="1440" height="760" fill="url(#mbBL)"/>
+      <rect width="1440" height="760" fill="url(#mbTR)"/>
+      <rect width="1440" height="760" fill="url(#mbBR)"/>
+      <!-- center warmth glow behind headline -->
+      <ellipse cx="720" cy="380" rx="540" ry="310" fill="url(#mbGlow)"/>
+
+      <!-- yellow-green dotted arc — left side swooping down -->
+      <path d="M 172,38 C 110,145 72,295 148,455 C 195,562 128,645 -18,728" fill="none" stroke="#c8e64c" stroke-width="1.6" stroke-dasharray="5 9" opacity="0.62"/>
+
+      <!-- yellow spark marks upper-left (3 angled slashes) -->
+      <line x1="208" y1="214" x2="222" y2="196" stroke="#c8e64c" stroke-width="2.8" stroke-linecap="round" opacity="0.88"/>
+      <line x1="222" y1="208" x2="238" y2="190" stroke="#c8e64c" stroke-width="2.5" stroke-linecap="round" opacity="0.72"/>
+      <line x1="215" y1="230" x2="229" y2="214" stroke="#c8e64c" stroke-width="2" stroke-linecap="round" opacity="0.58"/>
+
+      <!-- small dotted circle outline top-right -->
+      <circle cx="1212" cy="98" r="44" fill="none" stroke="rgba(255,255,255,0.30)" stroke-width="1.2" stroke-dasharray="3 8"/>
+
+      <!-- blue-periwinkle squiggly right side -->
+      <path d="M 1236,468 C 1208,448 1264,428 1236,408 C 1208,388 1264,368 1236,348" fill="none" stroke="#9fc8e6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.52"/>
+
+      <!-- 3×3 yellow dot grid bottom-left -->
+      <g fill="#c8e64c" opacity="0.52">
+        <circle cx="74" cy="656" r="2.5"/><circle cx="87" cy="656" r="2.5"/><circle cx="100" cy="656" r="2.5"/>
+        <circle cx="74" cy="669" r="2.5"/><circle cx="87" cy="669" r="2.5"/><circle cx="100" cy="669" r="2.5"/>
+        <circle cx="74" cy="682" r="2.5"/><circle cx="87" cy="682" r="2.5"/><circle cx="100" cy="682" r="2.5"/>
+      </g>
+
+      <!-- 4-pointed star sparkle bottom-right -->
+      <g transform="translate(1148,702)" opacity="0.88">
+        <line x1="0" y1="-12" x2="0" y2="12" stroke="#c8e64c" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="-12" y1="0" x2="12" y2="0" stroke="#c8e64c" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="-8" y1="-8" x2="8" y2="8" stroke="#c8e64c" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="8" y1="-8" x2="-8" y2="8" stroke="#c8e64c" stroke-width="1.6" stroke-linecap="round"/>
+      </g>
+
+      <!-- small yellow dotted arc bottom-right corner -->
+      <path d="M 1296,702 C 1346,672 1378,720 1428,694" fill="none" stroke="#c8e64c" stroke-width="1.5" stroke-dasharray="4 6" opacity="0.48"/>
+    </svg>
+
+    <p class="mindset-eyebrow">The Designpreneurs Mindset</p>
+    <h2 class="mindset-headline">We Are Designpreneurs,<br>Designing Ideas Into Action.</h2>
+    <p class="mindset-body">Through hackathons, mentorship, and collaborative challenges, we empower emerging creatives to turn bold thinking into&nbsp;meaningful&nbsp;solutions.</p>
+  </section>
+
+
+  <script>
+    (function () {
+      const btn = document.getElementById('navHamburger');
+      const links = document.querySelector('.nav-links');
+      btn.addEventListener('click', () => { btn.classList.toggle('open'); links.classList.toggle('open'); });
+      links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { btn.classList.remove('open'); links.classList.remove('open'); }));
+    })();
+    (function () {
+      const tp = document.getElementById('blobText');
+      if (!tp) return;
+      let pct = 0;
+      (function tick() {
+        pct = (pct + 0.038) % 100;
+        tp.setAttribute('startOffset', pct.toFixed(3) + '%');
+        requestAnimationFrame(tick);
+      })();
+    })();
+
+    (function () {
+      const PEOPLE = {
+        sally: {
+          name: 'Sally Chung',
+          role: 'Founder',
+          photo: 'assets/people/sally.webp',
+          photoStyle: 'object-position: center 15%',
+          blurb: 'Interaction and startup design educator at Parsons and SVA. Sally founded Designpreneurs after watching talented designers struggle to translate their craft into shipped products. Her mission: close the gap between designer and founder — one weekend at a time.'
+        },
+        ian: {
+          name: 'Ian Abinoja',
+          role: 'Advisor',
+          photo: 'assets/people/ian.jpeg',
+          photoStyle: 'object-position: center 20%',
+          blurb: 'Strategic advisor and early champion of the Designpreneurs community. Ian brings deep experience in product strategy and growth, helping shape the program\'s long-term direction, key partnerships, and the networks that make every event possible.'
+        },
+        meijie: {
+          name: 'Meijie Hu',
+          role: 'Organizer',
+          photo: 'assets/people/meijie.jpeg',
+          photoStyle: '',
+          blurb: 'The operational force behind every event. Meijie handles logistics, community, and communications — ensuring each hackathon weekend runs with the same attention to detail that goes into the design work itself.'
+        },
+        vlad: {
+          name: 'Vlad Duhnov',
+          role: 'Organizer',
+          photo: 'assets/people/vlad.jpeg',
+          photoStyle: 'object-position: center 15%',
+          blurb: 'Organizer with a sharp eye for craft and an instinct for what makes creative communities thrive. Vlad shapes the experience side of our events — from venue and flow to the design of every participant touchpoint.'
+        }
+      };
+
+      const drawer   = document.getElementById('founderDrawer');
+      const overlay  = document.getElementById('drawerOverlay');
+      const closeBtn = document.getElementById('drawerClose');
+      const photo  = document.getElementById('drawerPhoto');
+      const name   = document.getElementById('drawerName');
+      const role   = document.getElementById('drawerRole');
+      const blurb  = document.getElementById('drawerBlurb');
+
+      function openDrawer(key) {
+        const p = PEOPLE[key];
+        if (!p) return;
+        photo.src = p.photo;
+        photo.alt = p.name;
+        photo.style.cssText = p.photoStyle;
+        name.textContent  = p.name;
+        role.textContent  = p.role;
+        blurb.textContent = p.blurb;
+        drawer.classList.add('open');
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeDrawer() {
+        drawer.classList.remove('open');
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      document.querySelectorAll('.person-card[data-person]').forEach(card => {
+        card.addEventListener('click', () => openDrawer(card.dataset.person));
+      });
+
+      closeBtn.addEventListener('click', closeDrawer);
+      overlay.addEventListener('click', closeDrawer);
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+    })();
+  </script>
+
+
+  <footer class="site-footer">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <div class="footer-logo-row">
+          <img src="assets/d_logo_white.png" alt="Designpreneurs" class="footer-logo">
+          <span class="footer-logo-name">Designpreneurs<br>Hackathon</span>
+        </div>
+        <p class="footer-desc">Designpreneurs Hackathon is an AI &amp; XR startup design hackathon commited to cultivate design-driven business-minded founders and designers.</p>
+        <div class="footer-social-row">
+          <a href="https://www.linkedin.com/company/designpreneurs" target="_blank" class="footer-social-icon" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 110-4.14 2.07 2.07 0 010 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46C23.2 24 24 23.23 24 22.28V1.72C24 .77 23.2 0 22.23 0z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/designpreneurshackathon" target="_blank" class="footer-social-icon" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a href="mailto:hello@designpreneurs.co" class="footer-email">hello@designpreneurs.co</a>
+        </div>
+      </div>
+      <div class="footer-right">
+        <p class="footer-newsletter-label">Subscribe to Designprenuers <em>Newsletter</em> For Future Events &amp; Announcements</p>
+        <div class="footer-newsletter-form">
+          <input type="email" class="footer-newsletter-input" placeholder="name@gmail.com">
+          <button type="button" class="footer-newsletter-btn">Join Now</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+</body>
+</html>

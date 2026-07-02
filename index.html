@@ -30,9 +30,7 @@
       align-items: center;
       padding: 0 64px;
       height: 68px;
-      background: rgba(255,255,255,0.88);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: #fff;
       border-bottom: 1px solid rgba(0,0,0,0.07);
     }
 
@@ -692,9 +690,7 @@
         display: none;
         position: fixed;
         top: 68px; left: 0; right: 0;
-        background: rgba(255,255,255,0.97);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
+        background: #fff;
         flex-direction: column;
         padding: 16px 20px 24px;
         border-bottom: 1px solid rgba(0,0,0,0.08);
@@ -773,6 +769,37 @@
       .faq-q-text { font-size: 15px; }
     }
 
+    /* ── FOOTER ──────────────────────────────────────────────────────────────── */
+    .site-footer { background: #0d0d0d; padding: 72px 80px 56px; }
+    .footer-main { display: grid; grid-template-columns: 1fr 1fr; column-gap: 80px; align-items: end; }
+    .footer-brand { display: flex; flex-direction: column; gap: 0; }
+    .footer-logo-row { display: flex; align-items: center; gap: 14px; margin-bottom: 36px; }
+    .footer-logo { height: 40px; width: auto; display: block; }
+    .footer-logo-name { font-size: 18px; font-weight: 700; color: #fff; line-height: 1.25; }
+    .footer-desc { font-size: 14px; font-weight: 400; color: #fff; line-height: 1.7; max-width: 380px; margin-bottom: 24px; }
+    .footer-social-row { display: flex; align-items: center; gap: 16px; }
+    .footer-social-icon { display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; transition: opacity 0.18s; }
+    .footer-social-icon:hover { opacity: 0.7; }
+    .footer-social-icon svg { width: 18px; height: 18px; }
+    .footer-email { font-size: 14px; font-weight: 400; color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+    .footer-email:hover { opacity: 0.7; }
+    .footer-right { display: flex; flex-direction: column; gap: 20px; }
+    .footer-newsletter-label { font-size: 14px; font-weight: 400; color: #fff; line-height: 1.5; }
+    .footer-newsletter-label em { font-style: italic; }
+    .footer-newsletter-form { display: flex; gap: 10px; align-items: center; }
+    .footer-newsletter-input { flex: 1; padding: 14px 22px; background: #fff; border: none; border-radius: 100px; font-family: 'Wix Madefor Display', sans-serif; font-size: 14px; color: #111; outline: none; }
+    .footer-newsletter-input::placeholder { color: #aaa; }
+    .footer-newsletter-btn { padding: 14px 28px; background: #3a3a3a; color: #fff; border: none; border-radius: 100px; font-family: 'Wix Madefor Display', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: background 0.18s; }
+    .footer-newsletter-btn:hover { background: #555; }
+    @media (max-width: 900px) {
+      .site-footer { padding: 56px 40px 40px; }
+      .footer-main { grid-template-columns: 1fr; row-gap: 56px; }
+    }
+    @media (max-width: 680px) {
+      .site-footer { padding: 48px 20px 36px; }
+      .footer-newsletter-form { flex-direction: column; align-items: stretch; }
+    }
+
   </style>
 </head>
 <body>
@@ -789,9 +816,10 @@
       <li class="nav-dropdown">
         <a href="#">People</a>
         <ul class="dropdown-menu">
-          <li><a href="#">Organizers</a></li>
-          <li><a href="#">Judges &amp; Mentors</a></li>
-          <li><a href="#">Hackers</a></li>
+          <li><a href="team.html">Founders</a></li>
+          <li><a href="judges.html">Judges &amp; Mentors</a></li>
+          <li><a href="hackers.html">Hackers</a></li>
+
         </ul>
       </li>
       <li><a href="#faq">FAQ</a></li>
@@ -1088,6 +1116,36 @@
     })();
 
   </script>
+
+
+  <footer class="site-footer">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <div class="footer-logo-row">
+          <img src="assets/d_logo_white.png" alt="Designpreneurs" class="footer-logo">
+          <span class="footer-logo-name">Designpreneurs<br>Hackathon</span>
+        </div>
+        <p class="footer-desc">Designpreneurs Hackathon is an AI &amp; XR startup design hackathon commited to cultivate design-driven business-minded founders and designers.</p>
+        <div class="footer-social-row">
+          <a href="https://www.linkedin.com/company/designpreneurs" target="_blank" class="footer-social-icon" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 110-4.14 2.07 2.07 0 010 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46C23.2 24 24 23.23 24 22.28V1.72C24 .77 23.2 0 22.23 0z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/designpreneurshackathon" target="_blank" class="footer-social-icon" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a href="mailto:hello@designpreneurs.co" class="footer-email">hello@designpreneurs.co</a>
+        </div>
+      </div>
+      <div class="footer-right">
+        <p class="footer-newsletter-label">Subscribe to Designprenuers <em>Newsletter</em> For Future Events &amp; Announcements</p>
+        <div class="footer-newsletter-form">
+          <input type="email" class="footer-newsletter-input" placeholder="name@gmail.com">
+          <button type="button" class="footer-newsletter-btn">Join Now</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
 
 </body>
 </html>
