@@ -171,8 +171,8 @@
 
     (async function () {
       const EVENT_SLUG = 'startup-hackathon-2023';
-      const SUPABASE_URL = 'https://kbnesdaootbfjthmtuut.supabase.co';
-      const SUPABASE_KEY = 'sb_publishable_-NAB4P07wORrqNfvvHXs9w_6dGy6fAf';
+      const SUPABASE_URL = 'https://nqbudfddwzhtqebecmez.supabase.co';
+      const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xYnVkZmRkd3podHFlYmVjbWV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA5MTc3MDMsImV4cCI6MjA5NjQ5MzcwM30.7PMAFf6zaAt9sKLbmfS919FLGH9o0bGP2RtP02g7Xfc';
       const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
       const { data, error } = await client.from('hackers').select('name, portfolio_url').eq('event_slug', EVENT_SLUG).order('name');
       if (error || !data || data.length === 0) return;
