@@ -40,7 +40,7 @@
     .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
     /* ── HERO ─────────────────────────────────────────────────────────────────── */
-    .hero { position: relative; width: 100%; height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding: 0 80px 96px; overflow: hidden; text-align: center; background-image: url('assets/people_hero.png'); background-size: cover; background-position: center; }
+    .hero { position: relative; width: 100%; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0 80px; overflow: hidden; text-align: center; background-image: url('assets/people_hero.png'); background-size: cover; background-position: center; }
     .hero::before { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.3); z-index: 0; }
     .hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.1) 50%, transparent 100%); z-index: 1; }
     .hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
@@ -190,7 +190,7 @@
     /* ── RESPONSIVE ──────────────────────────────────────────────────────────── */
     @media (max-width: 900px) {
       .nav { padding: 0 32px; }
-      .hero { padding: 0 40px 72px; }
+      .hero { padding: 0 40px; }
       .mission-section { padding: 80px 40px; }
       .image-section { padding: 60px 40px; }
       .image-section img { width: 80%; }
@@ -206,7 +206,7 @@
       .nav-links > li + li::before { display: none; }
       .nav-links a { display: block; padding: 14px 0; font-size: 16px; border-bottom: 1px solid rgba(0,0,0,0.06); }
       .nav-hamburger { display: flex; }
-      .hero { padding: 0 20px 56px; }
+      .hero { padding: 0 20px; }
       .hero-title { letter-spacing: -1.5px; }
       .mission-section { padding: 56px 20px; }
       .mission-body p { font-size: 16px; line-height: 1.7; }
@@ -421,7 +421,7 @@
       </text>
     </svg>
     <div class="hero-content">
-      <h1 class="hero-title">Our<br>People</h1>
+      <h1 class="hero-title">Our<br>Team</h1>
     </div>
   </section>
 
