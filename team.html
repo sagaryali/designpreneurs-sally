@@ -64,13 +64,98 @@
     .image-section img { width: 52%; max-width: 680px; height: auto; display: block; }
 
     /* ── FOUNDER'S LETTER ───────────────────────────────────────────────────── */
-    .founders-letter { position: relative; padding: 160px 80px 100px; background: #fff; border-top: 1px solid rgba(0,0,0,0.06); }
-    .founders-letter-float-img { position: absolute; top: 76px; left: 120px; width: 272px; transform: translateY(-50%); z-index: 10; border-radius: 14px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
-    .founders-letter-float-img img { width: 100%; height: auto; display: block; }
-    .founders-letter-inner { max-width: 720px; margin: 0 auto; text-align: left; }
-    .founders-letter-inner p { font-size: 17px; font-weight: 400; color: #222; line-height: 1.82; }
-    .founders-letter-inner p + p { margin-top: 26px; }
-    .founders-letter-sig { margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(0,0,0,0.1); font-size: 14px; font-weight: 600; color: #111; }
+    .founders-letter { padding: 100px 80px 120px; background: #fff; border-top: 1px solid rgba(0,0,0,0.06); }
+    .founders-letter > .section-heading { margin-bottom: 64px; }
+
+    .letter-scene { max-width: 680px; margin: 0 auto; }
+
+    /* clip-path lets the letter rise above the envelope but hides any overflow below */
+    .env-outer {
+      position: relative; cursor: pointer; user-select: none;
+      clip-path: inset(-700px 0 0 0);
+    }
+
+    /* letter card — hidden inside envelope, slides up on open */
+    .env-letter {
+      position: absolute; bottom: 0; left: 20px; right: 20px; z-index: 1;
+      transform: translateY(52%);
+      transition: transform 1s 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .env-outer.open .env-letter { transform: translateY(26%); }
+
+    .letter-body {
+      background: #111; padding: 52px 52px 64px; position: relative;
+    }
+    .letter-close {
+      position: absolute; top: 18px; right: 20px;
+      background: none; border: none; cursor: pointer;
+      font-size: 14px; line-height: 1; color: #fff; opacity: 0.3;
+      padding: 4px 6px; font-family: sans-serif;
+    }
+    .letter-close:hover { opacity: 0.75; }
+    .letter-body p { font-family: 'Playfair Display', Georgia, serif; font-size: 17px; font-weight: 400; color: #fff; line-height: 1.9; }
+    .letter-body p + p { margin-top: 24px; }
+    .letter-sig { margin-top: 44px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.12); font-family: 'Wix Madefor Display', sans-serif; font-size: 13px; font-weight: 700; color: #fff; }
+
+    /* envelope shell — paints above the letter */
+    .env-box { position: relative; z-index: 2; }
+
+    /* envelope body */
+    .env-body {
+      background: #f5f0e8;
+      min-height: 480px;
+      border-radius: 6px;
+      box-shadow: 0 16px 56px rgba(0,0,0,0.14), 0 4px 12px rgba(0,0,0,0.07);
+      position: relative; overflow: hidden;
+      display: flex; align-items: flex-end; justify-content: center;
+      padding-bottom: 52px;
+    }
+    .env-lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+    .env-hint {
+      position: relative; z-index: 2;
+      font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #c4bdb0;
+      transition: opacity 0.2s;
+    }
+    .env-outer.open .env-hint { opacity: 0; }
+
+    /* triangular flap */
+    .env-flap {
+      position: absolute; top: 0; left: 0; right: 0; height: 260px;
+      background: #ede8de;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top center;
+      backface-visibility: hidden;
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 3;
+    }
+    .env-outer.open .env-flap { transform: perspective(600px) rotateX(-180deg); }
+
+    /* scrollable letter overlay — appears after envelope animation */
+    .letter-overlay {
+      position: fixed; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      background: rgba(0,0,0,0.52);
+      z-index: 900;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .letter-overlay.visible { opacity: 1; pointer-events: auto; }
+    .letter-card {
+      position: relative;
+      max-width: 640px; width: 100%;
+      max-height: 88vh; overflow-y: auto;
+      transform: translateY(48px);
+      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .letter-overlay.visible .letter-card { transform: translateY(0); }
+    .letter-card-close {
+      position: absolute; top: 18px; right: 20px;
+      background: none; border: none; cursor: pointer;
+      font-size: 14px; line-height: 1; color: #fff; opacity: 0.3;
+      padding: 4px 6px; font-family: sans-serif;
+    }
+    .letter-card-close:hover { opacity: 0.75; }
 
     /* ── TEAM SECTION ────────────────────────────────────────────────────────── */
     .team-section { padding: 80px; }
@@ -85,22 +170,7 @@
     .person-divider { height: 1px; background: rgba(0,0,0,0.1); margin: 12px 0; }
     .person-role { font-size: 13px; font-weight: 400; color: #555; line-height: 1.5; }
 
-    /* ── FOUNDER DRAWER ──────────────────────────────────────────────────────── */
-    .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.32); z-index: 149; opacity: 0; pointer-events: none; transition: opacity 0.28s; }
-    .drawer-overlay.open { opacity: 1; pointer-events: all; }
-    .founder-drawer { position: fixed; top: 68px; right: 0; bottom: 0; width: 33.333vw; background: #fff; border-left: 1px solid rgba(0,0,0,0.08); z-index: 150; transform: translateX(100%); transition: transform 0.32s cubic-bezier(0.4,0,0.2,1); overflow-y: auto; display: flex; flex-direction: column; }
-    .founder-drawer.open { transform: translateX(0); }
-    .drawer-close { position: absolute; top: 36px; right: 32px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.35); border: none; border-radius: 50%; font-size: 14px; cursor: pointer; color: #fff; z-index: 2; transition: background 0.18s; }
-    .drawer-close:hover { background: rgba(0,0,0,0.55); }
-    .drawer-photo { display: block; width: calc(100% - 40px); aspect-ratio: 1/1; margin: 24px 20px 0; object-fit: cover; object-position: center 15%; border-radius: 16px; }
-    .drawer-body { padding: 24px 28px 48px; display: flex; flex-direction: column; gap: 8px; }
-    .drawer-name { font-size: 22px; font-weight: 800; color: #111; text-transform: uppercase; letter-spacing: -0.3px; }
-    .drawer-role { font-size: 11px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: 2px; }
-    .drawer-divider { height: 1px; background: rgba(0,0,0,0.08); margin: 8px 0; }
-    .drawer-blurb { font-size: 15px; font-weight: 400; color: #444; line-height: 1.82; }
-    @media (max-width: 680px) {
-      .founder-drawer { width: 100%; }
-    }
+    a.person-card { text-decoration: none; color: inherit; display: block; }
 
     /* ── RESPONSIVE ──────────────────────────────────────────────────────────── */
     @media (max-width: 900px) {
@@ -109,9 +179,7 @@
       .mission-section { padding: 80px 40px; }
       .image-section { padding: 60px 40px; }
       .image-section img { width: 80%; }
-      .founders-letter { padding: 120px 40px 80px; }
-      .founders-letter-float-img { left: 40px; width: 200px; }
-      .founders-letter-inner { max-width: 100%; }
+      .founders-letter { padding: 72px 40px 80px; }
       .team-section { padding: 60px 40px; }
       .team-grid { grid-template-columns: repeat(2, 1fr); }
     }
@@ -129,10 +197,10 @@
       .mission-body p { font-size: 16px; line-height: 1.7; }
       .image-section { padding: 40px 20px; }
       .image-section img { width: 100%; }
-      .founders-letter { padding: 56px 20px 56px; }
-      .founders-letter-float-img { display: none; }
-      .founders-letter-inner { max-width: 100%; }
-      .founders-letter-inner p { font-size: 16px; }
+      .founders-letter { padding: 56px 20px 72px; }
+      .env-flap { height: 140px; }
+      .letter-body { padding: 24px 24px 44px; }
+      .letter-body p { font-size: 14px; }
       .team-section { padding: 48px 20px; }
       .section-heading { margin-bottom: 40px; font-size: clamp(32px, 9vw, 56px); }
       .team-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
@@ -142,7 +210,6 @@
     }
     @media (max-width: 420px) {
       .team-grid { grid-template-columns: 1fr; }
-      .founders-letter-inner p { font-size: 15px; }
       .mission-body p { font-size: 15px; }
     }
 
@@ -361,55 +428,82 @@
     <h2 class="section-heading">Core Team</h2>
     <div class="team-grid">
 
-      <div class="person-card" data-person="sally">
+      <a href="founders.html#sally" class="person-card">
         <div class="person-card-media"><img src="assets/people/sally.webp" alt="Sally Chung"></div>
         <div class="person-card-body"><p class="person-name">Sally Chung</p><div class="person-divider"></div><p class="person-role">Founder</p></div>
-      </div>
+      </a>
 
-      <div class="person-card" data-person="ian">
+      <a href="founders.html#ian" class="person-card">
         <div class="person-card-media"><img src="assets/people/ian.jpeg" alt="Ian Abinoja" style="object-position: center 20%;"></div>
         <div class="person-card-body"><p class="person-name">Ian Abinoja</p><div class="person-divider"></div><p class="person-role">Advisor</p></div>
-      </div>
+      </a>
 
-      <div class="person-card" data-person="meijie">
+      <a href="founders.html#meijie" class="person-card">
         <div class="person-card-media"><img src="assets/people/meijie.jpeg" alt="Meijie Hu"></div>
         <div class="person-card-body"><p class="person-name">Meijie Hu</p><div class="person-divider"></div><p class="person-role">Organizer</p></div>
-      </div>
+      </a>
 
-      <div class="person-card" data-person="vlad">
+      <a href="founders.html#vlad" class="person-card">
         <div class="person-card-media"><img src="assets/people/vlad.jpeg" alt="Vlad Duhnov" style="object-position: center 15%;"></div>
         <div class="person-card-body"><p class="person-name">Vlad Duhnov</p><div class="person-divider"></div><p class="person-role">Organizer</p></div>
-      </div>
+      </a>
 
     </div>
   </section>
-
-  <!-- ── Founder drawer ── -->
-  <div class="drawer-overlay" id="drawerOverlay"></div>
-  <aside class="founder-drawer" id="founderDrawer">
-    <button class="drawer-close" id="drawerClose">✕</button>
-    <img class="drawer-photo" id="drawerPhoto" src="" alt="">
-    <div class="drawer-body">
-      <p class="drawer-name" id="drawerName"></p>
-      <p class="drawer-role" id="drawerRole"></p>
-      <div class="drawer-divider"></div>
-      <p class="drawer-blurb" id="drawerBlurb"></p>
-    </div>
-  </aside>
-
 
   <section class="founders-letter">
     <h2 class="section-heading">Founder's Letter</h2>
-    <div class="founders-letter-inner">
-      <p>I didn't set out to build a hackathon. I set out to solve one problem for my design students.</p>
-      <p>I teach interaction and startup design at Parsons and SVA, and I kept seeing the same gap. My students were brilliant on the screen — beautiful interfaces, sharp instincts — but they'd never shipped anything into the real world. No exposure to real users, real constraints, real stakes. So I gave them a challenge: one weekend, take an idea from blank canvas to a working product. I just wanted them to walk out with a portfolio piece.</p>
-      <p>Then I saw what was happening on the other side. The products were finding real product-market fit. Founders in the room were learning to think design-first instead of leading with a business model — and their ideas got sharper for it. The weekend I built to teach a portfolio turned into something that drives real business impact.</p>
-      <p>Since then, one startup from this community raised $4M. Another was acquired. More than 70 designers landed jobs through the platform. We've stayed small and selective on purpose — every sponsor, judge, mentor, and hacker is hand-picked — because quality compounds and the room is everything.</p>
-      <p>I believe there should be far more designer-founders in the world. The gap between "designer" and "founder" should be a weekend, not a career. That's what we're here to close.</p>
-      <p class="founders-letter-sig">— Sally Chung, Founder, Designpreneurs</p>
+
+    <div class="letter-scene">
+      <div class="env-outer" id="envOuter" role="button" tabindex="0" aria-label="Open founder's letter">
+
+        <!-- Letter card — behind envelope, slides up on open -->
+        <div class="env-letter" id="envLetter">
+          <div class="letter-body">
+            <button class="letter-close" id="letterClose" aria-label="Close">&#x2715;</button>
+            <p>I didn't set out to build a hackathon. I set out to solve one problem for my design students.</p>
+            <p>I teach interaction and startup design at Parsons and SVA, and I kept seeing the same gap. My students were brilliant on the screen — beautiful interfaces, sharp instincts — but they'd never shipped anything into the real world. No exposure to real users, real constraints, real stakes. So I gave them a challenge: one weekend, take an idea from blank canvas to a working product. I just wanted them to walk out with a portfolio piece.</p>
+            <p>Then I saw what was happening on the other side. The products were finding real product-market fit. Founders in the room were learning to think design-first instead of leading with a business model — and their ideas got sharper for it. The weekend I built to teach a portfolio turned into something that drives real business impact.</p>
+            <p>Since then, one startup from this community raised $4M. Another was acquired. More than 70 designers landed jobs through the platform. We've stayed small and selective on purpose — every sponsor, judge, mentor, and hacker is hand-picked — because quality compounds and the room is everything.</p>
+            <p>I believe there should be far more designer-founders in the world. The gap between "designer" and "founder" should be a weekend, not a career. That's what we're here to close.</p>
+            <p class="letter-sig">— Sally Chung, Founder, Designpreneurs</p>
+          </div>
+        </div>
+
+        <!-- Envelope shell -->
+        <div class="env-box">
+          <!-- Triangular flap -->
+          <div class="env-flap"></div>
+          <!-- Envelope body with fold lines -->
+          <div class="env-body">
+            <svg class="env-lines" viewBox="0 0 420 300" preserveAspectRatio="none">
+              <line x1="0"   y1="0"   x2="210" y2="150" stroke="#ddd5c8" stroke-width="1.2"/>
+              <line x1="420" y1="0"   x2="210" y2="150" stroke="#ddd5c8" stroke-width="1.2"/>
+              <line x1="0"   y1="300" x2="210" y2="150" stroke="#ddd5c8" stroke-width="1.2"/>
+              <line x1="420" y1="300" x2="210" y2="150" stroke="#ddd5c8" stroke-width="1.2"/>
+            </svg>
+            <span class="env-hint">click to open</span>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
+  <!-- Full scrollable letter overlay -->
+  <div class="letter-overlay" id="letterOverlay">
+    <div class="letter-card">
+      <button class="letter-card-close" id="letterCardClose" aria-label="Close">&#x2715;</button>
+      <div class="letter-body">
+        <p>I didn't set out to build a hackathon. I set out to solve one problem for my design students.</p>
+        <p>I teach interaction and startup design at Parsons and SVA, and I kept seeing the same gap. My students were brilliant on the screen — beautiful interfaces, sharp instincts — but they'd never shipped anything into the real world. No exposure to real users, real constraints, real stakes. So I gave them a challenge: one weekend, take an idea from blank canvas to a working product. I just wanted them to walk out with a portfolio piece.</p>
+        <p>Then I saw what was happening on the other side. The products were finding real product-market fit. Founders in the room were learning to think design-first instead of leading with a business model — and their ideas got sharper for it. The weekend I built to teach a portfolio turned into something that drives real business impact.</p>
+        <p>Since then, one startup from this community raised $4M. Another was acquired. More than 70 designers landed jobs through the platform. We've stayed small and selective on purpose — every sponsor, judge, mentor, and hacker is hand-picked — because quality compounds and the room is everything.</p>
+        <p>I believe there should be far more designer-founders in the world. The gap between "designer" and "founder" should be a weekend, not a career. That's what we're here to close.</p>
+        <p class="letter-sig">— Sally Chung, Founder, Designpreneurs</p>
+      </div>
+    </div>
+  </div>
 
   <section class="testimonials-section">
     <div class="testimonials-inner">
@@ -540,6 +634,28 @@
       btn.addEventListener('click', () => { btn.classList.toggle('open'); links.classList.toggle('open'); });
       links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { btn.classList.remove('open'); links.classList.remove('open'); }));
     })();
+
+    (function () {
+      const env = document.getElementById('envOuter');
+      const letter = document.getElementById('envLetter');
+      const overlay = document.getElementById('letterOverlay');
+      const cardClose = document.getElementById('letterCardClose');
+      if (!env || !overlay) return;
+      function openLetter() {
+        env.classList.add('open');
+        setTimeout(() => overlay.classList.add('visible'), 700);
+      }
+      function closeLetter() {
+        overlay.classList.remove('visible');
+        setTimeout(() => env.classList.remove('open'), 350);
+      }
+      env.addEventListener('click', openLetter);
+      env.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLetter(); } });
+      if (letter) letter.addEventListener('click', e => e.stopPropagation());
+      if (cardClose) cardClose.addEventListener('click', closeLetter);
+      overlay.addEventListener('click', e => { if (e.target === overlay) closeLetter(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLetter(); });
+    })();
     (function () {
       const tp = document.getElementById('blobText');
       if (!tp) return;
@@ -551,74 +667,6 @@
       })();
     })();
 
-    (function () {
-      const PEOPLE = {
-        sally: {
-          name: 'Sally Chung',
-          role: 'Founder',
-          photo: 'assets/people/sally.webp',
-          photoStyle: 'object-position: center 15%',
-          blurb: 'Interaction and startup design educator at Parsons and SVA. Sally founded Designpreneurs after watching talented designers struggle to translate their craft into shipped products. Her mission: close the gap between designer and founder — one weekend at a time.'
-        },
-        ian: {
-          name: 'Ian Abinoja',
-          role: 'Advisor',
-          photo: 'assets/people/ian.jpeg',
-          photoStyle: 'object-position: center 20%',
-          blurb: 'Strategic advisor and early champion of the Designpreneurs community. Ian brings deep experience in product strategy and growth, helping shape the program\'s long-term direction, key partnerships, and the networks that make every event possible.'
-        },
-        meijie: {
-          name: 'Meijie Hu',
-          role: 'Organizer',
-          photo: 'assets/people/meijie.jpeg',
-          photoStyle: '',
-          blurb: 'The operational force behind every event. Meijie handles logistics, community, and communications — ensuring each hackathon weekend runs with the same attention to detail that goes into the design work itself.'
-        },
-        vlad: {
-          name: 'Vlad Duhnov',
-          role: 'Organizer',
-          photo: 'assets/people/vlad.jpeg',
-          photoStyle: 'object-position: center 15%',
-          blurb: 'Organizer with a sharp eye for craft and an instinct for what makes creative communities thrive. Vlad shapes the experience side of our events — from venue and flow to the design of every participant touchpoint.'
-        }
-      };
-
-      const drawer   = document.getElementById('founderDrawer');
-      const overlay  = document.getElementById('drawerOverlay');
-      const closeBtn = document.getElementById('drawerClose');
-      const photo  = document.getElementById('drawerPhoto');
-      const name   = document.getElementById('drawerName');
-      const role   = document.getElementById('drawerRole');
-      const blurb  = document.getElementById('drawerBlurb');
-
-      function openDrawer(key) {
-        const p = PEOPLE[key];
-        if (!p) return;
-        photo.src = p.photo;
-        photo.alt = p.name;
-        photo.style.cssText = p.photoStyle;
-        name.textContent  = p.name;
-        role.textContent  = p.role;
-        blurb.textContent = p.blurb;
-        drawer.classList.add('open');
-        overlay.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      }
-
-      function closeDrawer() {
-        drawer.classList.remove('open');
-        overlay.classList.remove('open');
-        document.body.style.overflow = '';
-      }
-
-      document.querySelectorAll('.person-card[data-person]').forEach(card => {
-        card.addEventListener('click', () => openDrawer(card.dataset.person));
-      });
-
-      closeBtn.addEventListener('click', closeDrawer);
-      overlay.addEventListener('click', closeDrawer);
-      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
-    })();
   </script>
 
 
