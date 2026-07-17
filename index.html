@@ -997,7 +997,6 @@
 
       const grouped = { upcoming: [], '2025-2026': [], '2023-2024': [] };
       data.forEach(e => {
-        if (e.location && e.location.includes('San Francisco')) return;
         if (grouped[e.period] !== undefined) grouped[e.period].push(e);
       });
 
