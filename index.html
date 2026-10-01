@@ -976,15 +976,18 @@
 
       // CTA on upcoming events. Per-event link map takes priority, then the DB fields,
       // then the site-wide Join Now fallback. Add new events to CTA_LINKS as their links go live.
+      // Use url: null to hide the CTA for an event.
       const CTA_LINKS = [
         { match: 'seoul', url: 'https://luma.com/2lqebgn4' },
-        { match: 'civic', url: 'https://luma.com/oba6n5tb' },
+        { match: 'civic', url: 'https://www.nyccivicdesign.com' },
         { match: 'founding designers', url: 'https://luma.com/klj4miwd' },
+        { match: 'ocean x', url: null },
       ];
       const ctaOverride = CTA_LINKS.find(o => (e.title || '').toLowerCase().includes(o.match));
       const ctaUrl = (ctaOverride && ctaOverride.url) || e.register_url || e.cta_url || e.link || 'https://www.designpreneurshackathon.com/#join-now';
       const ctaExternal = /^https?:\/\//.test(ctaUrl) && !ctaUrl.includes('designpreneurshackathon.com');
-      const cta = e.period === 'upcoming'
+      const ctaHidden = ctaOverride && ctaOverride.url === null;
+      const cta = e.period === 'upcoming' && !ctaHidden
         ? `<a href="${ctaUrl}"${ctaExternal ? ' target="_blank" rel="noopener"' : ''} class="event-cta">Join Now <span class="event-cta-arrow">→</span></a>`
         : '';
 
