@@ -965,7 +965,15 @@
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xYnVkZmRkd3podHFlYmVjbWV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA5MTc3MDMsImV4cCI6MjA5NjQ5MzcwM30.7PMAFf6zaAt9sKLbmfS919FLGH9o0bGP2RtP02g7Xfc'
     );
 
+    // Display-name overrides for event titles stored in the DB.
+    const TITLE_OVERRIDES = [
+      { match: 'hosted by aiga', title: 'NYC Civic by Design' },
+    ];
+
     function buildEventHTML(e) {
+      const titleOverride = TITLE_OVERRIDES.find(o => (e.title || '').toLowerCase().includes(o.match));
+      if (titleOverride) e = { ...e, title: titleOverride.title };
+
       const img = e.image_url
         ? `<img src="${e.image_url}" alt="${e.title}">`
         : `<div class="event-image-placeholder">IMAGE</div>`;
@@ -979,7 +987,7 @@
       // Use url: null to hide the CTA for an event.
       const CTA_LINKS = [
         { match: 'seoul', url: 'https://luma.com/2lqebgn4' },
-        { match: 'civic', url: 'https://www.nyccivicdesign.com' },
+        { match: 'civic', url: 'https://www.nyccivicbydesign.com' },
         { match: 'founding designers', url: 'https://luma.com/klj4miwd' },
         { match: 'ocean x', url: null },
       ];
