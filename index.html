@@ -992,7 +992,7 @@
         { match: 'ocean x', url: null },
       ];
       const ctaOverride = CTA_LINKS.find(o => (e.title || '').toLowerCase().includes(o.match));
-      const ctaUrl = (ctaOverride && ctaOverride.url) || e.register_url || e.cta_url || e.link || 'https://www.designpreneurshackathon.com/#join-now';
+      const ctaUrl = e.register_url || (ctaOverride && ctaOverride.url) || e.cta_url || e.link || 'https://www.designpreneurshackathon.com/#join-now';
       const ctaExternal = /^https?:\/\//.test(ctaUrl) && !ctaUrl.includes('designpreneurshackathon.com');
       const ctaHidden = ctaOverride && ctaOverride.url === null;
       const cta = e.period === 'upcoming' && !ctaHidden
